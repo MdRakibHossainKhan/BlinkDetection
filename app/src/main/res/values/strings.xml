@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Blink Detection</string>
+    <string name="instruction">Blink 3 Times to Take Photo</string>
+
+</resources>

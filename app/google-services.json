@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "875615373437",
+    "firebase_url": "https://blink-detection-2bd21.firebaseio.com",
+    "project_id": "blink-detection-2bd21",
+    "storage_bucket": "blink-detection-2bd21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875615373437:android:e19f71f4019b69726a8914",
+        "android_client_info": {
+          "package_name": "com.rakib.blinkdetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875615373437-45m4nro70t8u4ot72008i14ehrmfkl09.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rakib.blinkdetection",
+            "certificate_hash": "09c83465a3967f8016a8831298cc45a34f2e0789"
+          }
+        },
+        {
+          "client_id": "875615373437-dce0fjf42cveiju32us2m6jv12t9fq0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9dtgtVwi17z3CchNhN9AhYJfASvo7ldk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875615373437-dce0fjf42cveiju32us2m6jv12t9fq0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
