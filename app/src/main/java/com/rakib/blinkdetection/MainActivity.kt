@@ -22,24 +22,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     // High-accuracy landmark detection and face classification
-    val highAccuracyOpts = FirebaseVisionFaceDetectorOptions.Builder()
-            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
-            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-            .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
-            .build()
+    private val highAccuracyOpts = FirebaseVisionFaceDetectorOptions.Builder()
+        .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
+        .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
+        .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+        .build()
 
     val faceDetector =
-            FirebaseVision.getInstance()
-                    .getVisionFaceDetector(highAccuracyOpts)
+        FirebaseVision.getInstance()
+            .getVisionFaceDetector(highAccuracyOpts)
 
     // Function that creates and displays the camera preview
     private fun startCamera() {
 
-        val previewConfig = PreviewConfig.Builder()
-                .apply {
-                    setTargetResolution(Size(480, 360))
-                }
-                .build()
+        val previewConfig = PreviewConfig.Builder().setLensFacing(CameraX.LensFacing.FRONT)
+            .apply {
+                setTargetResolution(Size(1280, 720))
+            }
+            .build()
 
         val preview = Preview(previewConfig)
 
@@ -50,11 +50,12 @@ class MainActivity : AppCompatActivity() {
             textureView.surfaceTexture = it.surfaceTexture
         }
 
-        val analyzerConfig = ImageAnalysisConfig.Builder().apply {
-            setImageReaderMode(
+        val analyzerConfig =
+            ImageAnalysisConfig.Builder().setLensFacing(CameraX.LensFacing.FRONT).apply {
+                setImageReaderMode(
                     ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE
-            )
-        }.build()
+                )
+            }.build()
 
         val imageAnalysis = ImageAnalysis(analyzerConfig).apply {
             analyzer = ImageProcessor()
@@ -64,7 +65,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class ImageProcessor : ImageAnalysis.Analyzer {
-        private val TAG = javaClass.simpleName
 
         private var lastAnalyzedTimestamp = 0L
 
@@ -79,24 +79,24 @@ class MainActivity : AppCompatActivity() {
         override fun analyze(image: ImageProxy?, rotationDegrees: Int) {
             val currentTimestamp = System.currentTimeMillis()
             if (currentTimestamp - lastAnalyzedTimestamp >=
-                    TimeUnit.SECONDS.toMillis(1)
+                TimeUnit.SECONDS.toMillis(1)
             ) {
                 val imageRotation = degreesToFirebaseRotation(rotationDegrees)
                 image?.image?.let {
                     val visionImage = FirebaseVisionImage.fromMediaImage(it, imageRotation)
                     faceDetector.detectInImage(visionImage)
-                            .addOnSuccessListener { faces ->
-                                faces.forEach { face ->
-                                    if (face.leftEyeOpenProbability < 0.4 || face.rightEyeOpenProbability < 0.4) {
-                                        textView.text = "Blinking"
-                                    } else {
-                                        textView.text = "Not Blinking"
-                                    }
+                        .addOnSuccessListener { faces ->
+                            faces.forEach { face ->
+                                if (face.leftEyeOpenProbability < 0.4 || face.rightEyeOpenProbability < 0.4) {
+                                    textView.text = "Blinking"
+                                } else {
+                                    textView.text = "Not Blinking"
                                 }
                             }
-                            .addOnFailureListener {
-                                it.printStackTrace()
-                            }
+                        }
+                        .addOnFailureListener {
+                            it.printStackTrace()
+                        }
                 }
             }
 

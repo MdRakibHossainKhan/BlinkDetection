@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="@dimen/margin_max"
-        android:text="@string/instruction" />
+        android:text="@string/instruction"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="@dimen/sub_title_text" />
 
 </FrameLayout>
