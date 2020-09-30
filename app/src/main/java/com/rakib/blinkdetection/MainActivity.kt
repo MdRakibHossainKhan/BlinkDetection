@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
     // Function that creates and displays the camera preview
     private fun startCamera() {
-
         val previewConfig = PreviewConfig.Builder().setLensFacing(CameraX.LensFacing.FRONT)
             .apply {
                 setTargetResolution(Size(1280, 720))
@@ -88,9 +86,9 @@ class MainActivity : AppCompatActivity() {
                         .addOnSuccessListener { faces ->
                             faces.forEach { face ->
                                 if (face.leftEyeOpenProbability < 0.4 || face.rightEyeOpenProbability < 0.4) {
-                                    textView.text = "Blinking"
+                                    textView.text = getString(R.string.blinking)
                                 } else {
-                                    textView.text = "Not Blinking"
+                                    textView.text = getString(R.string.not_blinking)
                                 }
                             }
                         }
@@ -99,7 +97,6 @@ class MainActivity : AppCompatActivity() {
                         }
                 }
             }
-
         }
     }
 }

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Blink Detection</string>
     <string name="instruction">Please, Start Blinking...</string>
+    <string name="blinking">Blinking</string>
+    <string name="not_blinking">Not Blinking</string>
 
 </resources>
